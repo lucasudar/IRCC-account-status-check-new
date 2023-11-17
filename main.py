@@ -36,7 +36,9 @@ def login(driver):
     password_input = driver.find_element(By.ID, 'password')
     password_input.send_keys(PASSWORD)
 
-    driver.find_element(By.ID, 'sign-in-btn').click()
+    sign_btn_locator = (By.ID, 'sign-in-btn')
+    sign_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located(sign_btn_locator))
+    sign_btn.click()
 
 
 def get_updated_date(driver):
