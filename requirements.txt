@@ -1,0 +1,11 @@
+certifi==2021.10.8
+chardet==4.0.0
+idna==3.3
+pytz==2021.3
+requests==2.27.1
+selenium==4.1.0
+six==1.16.0
+tzlocal==4.1
+urllib3==1.26.8
+webdriver-manager==4.0.1
+python-dotenv
