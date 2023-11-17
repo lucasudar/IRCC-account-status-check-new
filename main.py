@@ -72,8 +72,8 @@ def check_profile():
 
         updated_date = get_updated_date(driver)
 
-        four_days_ago = datetime.now() - timedelta(days=2)
-        if updated_date >= four_days_ago:
+        two_days_ago = datetime.now() - timedelta(days=2)
+        if updated_date >= two_days_ago:
             driver.get_screenshot_as_file("screenshot.png")
             print('\033[32m' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + ' Current status: Update!' + '\033[0m')
             send_telegram('Ghost update! Check profile ASAP')
