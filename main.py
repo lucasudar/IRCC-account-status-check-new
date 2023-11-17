@@ -18,10 +18,6 @@ chrome_options = Options()
 chrome_options.add_argument("--disable-blink-features")
 chrome_options.add_argument("--disable-blink-features=AutomationControlled")
 
-# chrome_options.headless = True
-# chrome_options.add_argument('--headless')
-# chrome_options.add_argument('disable-gpu')
-
 service = Service(ChromeDriverManager().install())
 
 
@@ -32,6 +28,7 @@ def init_driver():
 
 
 def login(driver):
+    driver.minimize_window()
     driver.get("https://ircc-tracker-suivi.apps.cic.gc.ca/en/login")
     username = driver.find_element(By.ID, 'uci')
     username.send_keys(USER)
