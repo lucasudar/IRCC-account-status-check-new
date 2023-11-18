@@ -19,6 +19,7 @@ TIMER = int(os.getenv('TIMER'))
 chrome_options = Options()
 chrome_options.add_argument("--disable-blink-features")
 chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+chrome_options.add_argument("--headless")
 
 service = Service(ChromeDriverManager().install())
 
@@ -43,7 +44,6 @@ def click_element(driver, locator):
 
 
 def login(driver):
-    # driver.minimize_window()
     driver.get("https://ircc-tracker-suivi.apps.cic.gc.ca/en/login")
     username = driver.find_element(By.ID, 'uci')
     username.send_keys(USER)
