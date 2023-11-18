@@ -7,6 +7,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from interval import every
 from send_status import send_telegram
 
@@ -27,8 +29,21 @@ def init_driver():
     return driver
 
 
+def click_element(driver, locator):
+    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(locator))
+    try:
+        element.click()
+    except Exception as e:
+        action = ActionChains(driver)
+        action.send_keys(Keys.DOWN).perform()
+        try:
+            element.click()
+        except Exception:
+            pass
+
+
 def login(driver):
-    driver.minimize_window()
+    # driver.minimize_window()
     driver.get("https://ircc-tracker-suivi.apps.cic.gc.ca/en/login")
     username = driver.find_element(By.ID, 'uci')
     username.send_keys(USER)
@@ -37,8 +52,7 @@ def login(driver):
     password_input.send_keys(PASSWORD)
 
     sign_btn_locator = (By.ID, 'sign-in-btn')
-    sign_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located(sign_btn_locator))
-    sign_btn.click()
+    click_element(driver, sign_btn_locator)
 
 
 def get_updated_date(driver):
@@ -56,15 +70,9 @@ def check_profile():
         driver = init_driver()
         login(driver)
 
-        # Find and click on the last row in the table
-        last_row_locator = (By.CSS_SELECTOR, "table tr:last-child")
-        last_row = WebDriverWait(driver, 10).until(EC.presence_of_element_located(last_row_locator))
-        last_row.click()
-
         # Find and click on the first column in the last row
         first_column_locator = (By.CSS_SELECTOR, "table tr:last-child td:first-child a")
-        first_column_link = WebDriverWait(driver, 10).until(EC.presence_of_element_located(first_column_locator))
-        first_column_link.click()
+        click_element(driver, first_column_locator)
 
         # Wait for the relevant elements to be present on the page
         meta_data_elements_locator = (By.CSS_SELECTOR, ".meta-data span:nth-child(2)")
