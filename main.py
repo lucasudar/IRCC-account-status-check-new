@@ -14,7 +14,7 @@ from send_status import send_telegram
 
 USER = os.getenv('LOGIN')
 PASSWORD = os.getenv('PASSWORD')
-TIMER = int(os.getenv('TIMER'))
+TIMER = int(os.getenv('TIMER', '1800'))
 
 chrome_options = Options()
 chrome_options.add_argument("--disable-blink-features")

@@ -9,5 +9,5 @@ Works on selenium and can be run on local machine.
 
 2. Edit `.env.example` and rename to `.env` your security information for script's work. Get chatID - add `@getidsbot` inside your group with your chatbot.
 
-3. Run `main.py`
+3. run inside your project folder `./venv/bin/python3 main.py`
 
